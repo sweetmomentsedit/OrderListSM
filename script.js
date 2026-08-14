@@ -236,6 +236,7 @@ async function loadOrders() {
         displayAllOrders();
 
         displayUpcomingDeliveries();
+        checkDeliveryAlarms();
 
 
     }
@@ -598,13 +599,13 @@ const upcomingOrders =
         )}"
     >
 
-    <button
-        type="button"
-        class="decorator-save-btn"
-        onclick="saveDecoratorAssignment(this)"
-    >
-        Save
-    </button>
+  <button
+    type="button"
+    class="decorator-save-btn"
+    onclick="saveDecoratorAssignment(this)"
+>
+    Save
+</button>
 
 </td>
 
@@ -1738,31 +1739,269 @@ function showDeliveryPopup(order) {
     );
 }
 // =====================================================
-// SAVE DECORATOR ASSIGNMENT
+// DECORATOR WHATSAPP NUMBERS
+// =====================================================
+
+const DECORATOR_PHONES = {
+
+    "Joan": "97430870324",
+
+    "Christal": "97430327045",
+
+    "Juliano": "639519764280",
+
+    "Fritz": "97474489232",
+
+    "Hensly": "97474450644",
+
+    "Altaf": "97477939168",
+
+    "Michelle": "97433539756",
+
+    "Jean Gay": "97477781639"
+
+};
+// =====================================================
+// SAVE DECORATOR + OPEN WHATSAPP
 // =====================================================
 
 async function saveDecoratorAssignment(button) {
 
+    console.log("=================================");
+    console.log("DECORATOR SAVE STARTED");
+    console.log("=================================");
+
+
+    // =================================================
+    // GET CELL
+    // =================================================
+
     const cell =
         button.closest(".decorator-cell");
+
+
+    if (!cell) {
+
+        alert("Decorator cell not found.");
+
+        return;
+
+    }
+
+
+    // =================================================
+    // GET INPUT
+    // =================================================
 
     const input =
         cell.querySelector(".decorator-input");
 
+
+    if (!input) {
+
+        alert("Decorator input not found.");
+
+        return;
+
+    }
+
+
+    // =================================================
+    // GET ORDER NUMBER
+    // =================================================
+
     const orderNo =
         input.getAttribute("data-order-no");
+
+
+    // =================================================
+    // GET DECORATOR
+    // =================================================
 
     const decorator =
         input.value.trim();
 
 
-    // Allow blank assignment
-    // Blank means remove decorator
+    console.log("Order:", orderNo);
+    console.log("Decorator:", decorator);
+
+
+    // =================================================
+    // CHECK DECORATOR
+    // =================================================
+
+    if (!decorator) {
+
+        alert(
+            "Please select a decorator first."
+        );
+
+        return;
+
+    }
+
+
+    // =================================================
+    // FIND ORDER
+    // =================================================
+
+    const order =
+        allOrders.find(function(item) {
+
+            return String(item.orderNo) ===
+                   String(orderNo);
+
+        });
+
+
+    if (!order) {
+
+        alert(
+            "Order #" +
+            orderNo +
+            " not found."
+        );
+
+        return;
+
+    }
+
+
+    // =================================================
+    // GET WHATSAPP NUMBER
+    // =================================================
+
+    const phone =
+        DECORATOR_PHONES[decorator];
+
+
+    console.log("WhatsApp phone:", phone);
+
+
+    if (!phone) {
+
+        alert(
+            "No WhatsApp number is assigned to " +
+            decorator
+        );
+
+        return;
+
+    }
+
+
+    // =================================================
+    // CREATE WHATSAPP MESSAGE
+    // =================================================
+
+    const whatsappMessage =
+
+        "🌸 SWEETMOMENTS ORDER 🌸\n\n" +
+
+        "Hello " +
+        decorator +
+        "! 👋\n\n" +
+
+        "You have been assigned a new order.\n\n" +
+
+        "━━━━━━━━━━━━━━━━━━\n" +
+
+        "📋 ORDER DETAILS\n" +
+
+        "━━━━━━━━━━━━━━━━━━\n\n" +
+
+        "Order #: " +
+        order.orderNo +
+
+        "\nCustomer: " +
+        order.customerNumber +
+
+        "\nFlavor: " +
+        order.flavor +
+
+        "\nPrepare To: " +
+        order.prepareTo +
+
+        "\nDelivery Date: " +
+        order.deliveryDate +
+
+        "\nDelivery Time: " +
+        order.deliveryTime +
+
+        "\nOrder Type: " +
+        order.orderType +
+
+        "\nPayment Status: " +
+        order.orderStatus +
+
+        "\nNotes: " +
+        order.notes +
+
+        "\n\n━━━━━━━━━━━━━━━━━━\n" +
+
+        "Please prepare the order accordingly. 🌸";
+
+
+    // =================================================
+    // CREATE WHATSAPP URL
+    // =================================================
+
+    const whatsappURL =
+        "https://wa.me/" +
+        phone +
+        "?text=" +
+        encodeURIComponent(
+            whatsappMessage
+        );
+
+
+    console.log(
+        "WhatsApp URL:",
+        whatsappURL
+    );
+
+
+    // =================================================
+    // OPEN WHATSAPP
+    //
+    // IMPORTANT:
+    // Open BEFORE fetch()
+    // =================================================
+
+    const whatsappWindow =
+        window.open(
+            whatsappURL,
+            "_blank"
+        );
+
+
+    // =================================================
+    // CHECK POPUP
+    // =================================================
+
+    if (!whatsappWindow) {
+
+        alert(
+            "WhatsApp could not be opened.\n\n" +
+            "Please allow pop-ups for this website."
+        );
+
+    }
+
+
+    // =================================================
+    // DISABLE BUTTON
+    // =================================================
 
     button.disabled = true;
 
-    button.textContent = "Saving...";
+    button.textContent =
+        "Saving...";
 
+
+    // =================================================
+    // SAVE TO GOOGLE SHEETS
+    // =================================================
 
     try {
 
@@ -1770,11 +2009,14 @@ async function saveDecoratorAssignment(button) {
             await fetch(
                 GOOGLE_SCRIPT_URL,
                 {
+
                     method: "POST",
 
                     headers: {
+
                         "Content-Type":
                             "text/plain;charset=utf-8"
+
                     },
 
                     body: JSON.stringify({
@@ -1789,6 +2031,7 @@ async function saveDecoratorAssignment(button) {
                             decorator
 
                     })
+
                 }
             );
 
@@ -1803,6 +2046,10 @@ async function saveDecoratorAssignment(button) {
         );
 
 
+        // =================================================
+        // CHECK RESPONSE
+        // =================================================
+
         if (!result.success) {
 
             throw new Error(
@@ -1813,44 +2060,37 @@ async function saveDecoratorAssignment(button) {
         }
 
 
-        // Update local data
+        // =================================================
+        // UPDATE LOCAL ORDER
+        // =================================================
 
-        const order =
-            allOrders.find(
-                function(item) {
-
-                    return String(
-                        item.orderNo
-                    ) === String(orderNo);
-
-                }
-            );
+        order.decoratorAssign =
+            decorator;
 
 
-        if (order) {
-
-            order.decoratorAssign =
-                decorator;
-
-        }
-
+        // =================================================
+        // SUCCESS
+        // =================================================
 
         button.textContent =
             "Saved ✓";
 
 
-        setTimeout(
-            function() {
-
-                button.textContent =
-                    "Save";
-
-            },
-            1500
+        console.log(
+            "✓ Decorator saved successfully"
         );
 
 
+        setTimeout(function() {
+
+            button.textContent =
+                "Save";
+
+        }, 2000);
+
+
     }
+
     catch (error) {
 
         console.error(
@@ -1869,6 +2109,7 @@ async function saveDecoratorAssignment(button) {
             "Save";
 
     }
+
     finally {
 
         button.disabled = false;
