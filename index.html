@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sweetmoments Order List</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="top-header">
+
+    <div class="header-content">
+
+      <div class="logo-area">
+
+    <div class="flower-logo">
+
+        <img src="SMlogo.png" alt="Sweetmoments Logo">
+
+    </div>
+
+    <div>
+
+                <h1>
+                    Sweetmoments
+                </h1>
+
+                <p>
+                    Order List
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-date">
+
+            <span id="currentDate">
+                Loading...
+            </span>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+    <!-- ================= NEW ORDER ================= -->
+
+    <section class="order-card">
+
+       <div class="section-title">
+
+    <div>
+
+        <h2>
+            🧾 New Order
+        </h2>
+
+        <p>
+            Encode a new Sweetmoments order
+        </p>
+
+    </div>
+
+
+    <!-- PREPARE TO -->
+
+    <div class="prepare-box">
+
+        <label for="prepareTo">
+            Prepare To
+        </label>
+
+        <select id="prepareTo" required>
+
+            <option value="">
+                Select Team
+            </option>
+
+            <option value="Decorator Team">
+                🎂 Decorator Team
+            </option>
+
+            <option value="Figurine Team">
+                🧸 Figurine Team
+            </option>
+
+            <option value="Cookie Team">
+                🍪 Cookie Team
+            </option>
+
+            <option value="Cookie Team">
+                🌸 Flower Team
+            </option>
+
+        </select>
+
+
+<datalist id="decoratorList">
+
+    <option value="Joan">
+    <option value="Christal">
+    <option value="Juliano">
+    <option value="Fritz">
+        <option value="Hensly">
+    <option value="Altaf">
+    <option value="Michelle">
+    <option value="Jean Gay">
+
+</datalist>
+    </div>
+
+</div>
+
+
+        <form id="orderForm">
+
+
+            <!-- CUSTOMER NUMBER -->
+
+            <div class="form-group">
+
+                <label for="customerNumber">
+                    Customer Number
+                </label>
+
+                <input
+                    type="text"
+                    id="customerNumber"
+                    placeholder="Example: CUST001A"
+                    autocomplete="off"
+                    required
+                >
+
+                <small>
+                    Letters and numbers allowed
+                </small>
+
+            </div>
+
+
+
+            <!-- FLAVOR -->
+
+            <div class="form-group">
+
+                <label for="flavor">
+                    Cake Flavor
+                </label>
+
+                <select id="flavor" required>
+
+                    <option value="">
+                        Select cake flavor
+                    </option>
+
+                    <option value="Choco Pudge">
+                        Choco Pudge
+                    </option>
+
+                    <option value="Choco">
+                        Choco
+                    </option>
+
+                    <option value="Choco Vanilla">
+                        Choco Vanilla
+                    </option>
+
+                    <option value="Choco Salted">
+                        Choco Salted
+                    </option>
+
+                    <option value="Vanilla">
+                        Vanilla
+                    </option>
+
+                    <option value="Red Velvet">
+                        Red Velvet
+                    </option>
+
+                    <option value="Carrot">
+                        Carrot
+                    </option>
+
+                    <option value="Lemon">
+                        Lemon
+                    </option>
+
+                    <option value="Sponge">
+                        Sponge
+                    </option>
+
+                    <option value="Victoria">
+                        Victoria
+                    </option>
+
+                    <option value="Funfetti">
+                        Funfetti
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ORDER STATUS -->
+
+            <div class="form-group">
+
+                <label for="orderStatus">
+                    Order Status
+                </label>
+
+                <select id="orderStatus" required>
+
+                    <option value="">
+                        Select order status
+                    </option>
+
+                    <option value="Waiting for Payment">
+                        Waiting for Payment
+                    </option>
+
+                    <option value="Downpayment">
+                        Downpayment
+                    </option>
+
+                    <option value="Paid">
+                        Paid
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- NOTES -->
+
+            <div class="form-group">
+
+                <label for="notes">
+                    Special Notes
+                </label>
+
+                <select id="notes" required>
+
+                    <option value="None">
+                        None
+                    </option>
+
+                    <option value="No Nuts">
+                        No Nuts
+                    </option>
+
+                    <option value="Eggless">
+                        Eggless
+                    </option>
+
+                    <option value="No Nuts / Eggless">
+                        No Nuts / Eggless
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- PAYMENT -->
+
+            <div class="form-group">
+
+                <label for="paymentMethod">
+                    Payment Method
+                </label>
+
+                <select id="paymentMethod" required>
+
+                    <option value="">
+                        Select payment method
+                    </option>
+
+                    <option value="Cash">
+                        Cash
+                    </option>
+
+                    <option value="Card">
+                        Card
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ORDER TYPE -->
+
+            <div class="form-group">
+
+                <label for="orderType">
+                    Order Type
+                </label>
+
+                <select id="orderType" required>
+
+                    <option value="">
+                        Select order type
+                    </option>
+
+                    <option value="Pick Up">
+                        Pick Up
+                    </option>
+
+                    <option value="Delivery">
+                        Delivery
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- DELIVERY DATE -->
+
+            <div class="form-group">
+
+                <label for="deliveryDate">
+                    Delivery / Pick Up Date
+                </label>
+
+                <input
+                    type="date"
+                    id="deliveryDate"
+                    required
+                >
+
+                <small id="dateNotice">
+                    Minimum 2 days advance
+                </small>
+
+            </div>
+
+
+
+            <!-- DELIVERY TIME -->
+
+            <div class="form-group">
+
+                <label for="deliveryTime">
+                    Delivery / Pick Up Time
+                </label>
+
+                <select id="deliveryTime" required>
+
+                    <option value="">
+                        Select time
+                    </option>
+
+                    <option value="10:30 AM">
+                        10:30 AM
+                    </option>
+
+                    <option value="11:00 AM">
+                        11:00 AM
+                    </option>
+
+                    <option value="11:30 AM">
+                        11:30 AM
+                    </option>
+
+                    <option value="12:00 NN">
+                        12:00 NN
+                    </option>
+
+                    <option value="12:30 PM">
+                        12:30 PM
+                    </option>
+
+
+                    <option value="01:00 PM">
+                        01:00 PM
+                    </option>
+                    <option value="1:30 PM">
+                        1:30 PM
+                    </option>
+                    <option value="02:00 PM">
+                        02:00 PM
+                    </option>
+                    <option value="2:30 PM">
+                        2:30 PM
+                    </option>
+                    <option value="03:00 PM">
+                        03:00 PM
+                    </option>
+                    <option value="3:30 PM">
+                        3:30 PM
+                    </option>
+                    <option value="04:00 PM">
+                        04:00 PM
+                    </option>
+                    <option value="4:30 PM">
+                        4:30 PM
+                    </option>
+
+                    <option value="05:00 PM">
+                        05:00 PM
+                    </option>
+                    <option value="5:30 PM">
+                        5:30 PM
+                    </option>
+                    <option value="06:00 PM">
+                        06:00 PM
+                    </option>
+                    <option value="6:30 PM">
+                        6:30 PM
+                    </option>
+                    <option value="07:00 PM">
+                        07:00 PM
+                    </option>
+                    <option value="07:30 PM">
+                        07:30 PM
+                    </option>
+                    
+                    <option value="08:00 PM">
+                        08:00 PM
+                    </option>
+                    <option value="8:30 PM">
+                        8:30 PM
+                    </option>
+                    <option value="09:00 PM">
+                        09:00 PM
+                    </option>
+                    <option value="9:30 PM">
+                        9:30 PM
+                    </option>
+                    
+                </select>
+
+            </div>
+
+
+
+            <!-- BUTTON -->
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    id="saveButton"
+                >
+
+                    🌸 Add Order
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- ================= UPCOMING DELIVERIES ================= -->
+
+    <section class="delivery-card">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    🚚 Upcoming Cakes
+                </h2>
+
+                <p>
+                    Delivery and pickup schedule
+                </p>
+
+            </div>
+
+
+            <button
+                class="refresh-button"
+                onclick="loadOrders()"
+            >
+
+                ↻ Refresh
+
+            </button>
+
+        </div>
+
+
+
+        <!-- TODAY -->
+
+        <div class="delivery-day">
+
+            <div class="day-title today-title">
+
+                <span>
+                    TODAY
+                </span>
+
+                <strong id="todayDate">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div
+                id="todayOrders"
+                class="delivery-list"
+            >
+
+                <div class="empty-message">
+                    No orders
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TOMORROW -->
+
+        <div class="delivery-day">
+
+            <div class="day-title">
+
+                <span>
+                    TOMORROW
+                </span>
+
+                <strong id="tomorrowDate">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div
+                id="tomorrowOrders"
+                class="delivery-list"
+            >
+
+                <div class="empty-message">
+                    No orders
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DAY AFTER TOMORROW -->
+
+        <div class="delivery-day">
+
+            <div class="day-title">
+
+                <span>
+                    DAY AFTER TOMORROW
+                </span>
+
+                <strong id="dayAfterDate">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div
+                id="dayAfterOrders"
+                class="delivery-list"
+            >
+
+                <div class="empty-message">
+                    No orders
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= ALL ORDERS ================= -->
+
+    <section class="table-card">
+
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    📋 All Order Records
+                </h2>
+
+                <p>
+                    Complete Sweetmoments order history
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="search-area">
+
+            <input
+                type="text"
+                id="searchBox"
+                placeholder="🔎 Search customer, flavor or order number..."
+                oninput="filterOrders()"
+            >
+
+
+            <select
+                id="statusFilter"
+                onchange="filterOrders()"
+            >
+
+                <option value="All">
+                    All Status
+                </option>
+
+                <option value="Waiting for Payment">
+                    Waiting for Payment
+                </option>
+
+                <option value="Downpayment">
+                    Downpayment
+                </option>
+
+                <option value="Paid">
+                    Paid
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- TABLE -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            No.
+                        </th>
+
+                        <th>
+                            Date Encoded
+                        </th>
+
+                        <th>
+                            Customer
+                        </th>
+
+                        <th>
+                            Flavor
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Notes
+                        </th>
+
+                        <th>
+                            Payment
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Delivery Date
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+                        <th>
+                        Prepare To
+                        </th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="orderTable">
+
+                    <tr>
+
+                        <td
+                            colspan="11"
+                            class="loading"
+                        >
+
+                            Loading orders...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    🌸 Sweetmoments Order List
+
+    <br>
+
+    <span>
+        Order Management System
+    </span>
+
+</footer>
+
+
+
+<!-- JAVASCRIPT -->
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
