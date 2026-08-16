@@ -377,42 +377,44 @@ function convertTime(time) {
 
 }
 
-
 // =====================================================
 // DISPLAY ALL ORDERS
 // =====================================================
 
 function displayAllOrders() {
+
     const table =
         document.getElementById(
             "orderTable"
         );
-// ==========================================
-// HIDE PAST ORDERS
-// DISPLAY TODAY + FUTURE ONLY
-// ==========================================
 
-const today = new Date();
+    // ==========================================
+    // HIDE PAST ORDERS
+    // DISPLAY TODAY + FUTURE ONLY
+    // ==========================================
 
-today.setHours(0, 0, 0, 0);
+    const today = new Date();
 
-const upcomingOrders =
-    allOrders.filter(function(order) {
+    today.setHours(0, 0, 0, 0);
 
-        if (!order.deliveryDate) {
-            return false;
-        }
+    const upcomingOrders =
+        allOrders.filter(function(order) {
 
-        const deliveryDate =
-            new Date(
-                order.deliveryDate + "T00:00:00"
-            );
+            if (!order.deliveryDate) {
+                return false;
+            }
 
-        deliveryDate.setHours(0, 0, 0, 0);
+            const deliveryDate =
+                new Date(
+                    order.deliveryDate + "T00:00:00"
+                );
 
-        return deliveryDate >= today;
+            deliveryDate.setHours(0, 0, 0, 0);
 
-    });
+            return deliveryDate >= today;
+
+        });
+
 
     if (!table) {
         return;
@@ -453,19 +455,39 @@ const upcomingOrders =
                 document.createElement("tr");
 
 
+            // ==========================================
+            // GMAIL SEARCH LINK
+            // SEARCH CUSTOMER / ORDER NUMBER
+            // ==========================================
+
+            const gmailSearch =
+                "https://mail.google.com/mail/u/0/#search/" +
+                encodeURIComponent(
+                    '"' + String(order.orderNo) + '"'
+                );
+
+
             row.innerHTML = `
 
-                <td>
+           <td>
 
-                    <span class="order-number">
+    <button
+        type="button"
+        class="order-number gmail-order-button"
+        onclick="openOrderEmail(
+            '${escapeHTML(order.orderNo)}',
+            '${escapeHTML(order.customerNumber)}'
+        )"
+        title="Click to search this order in Gmail"
+    >
 
-                        ${escapeHTML(
-                            order.orderNo
-                        )}
+        ${escapeHTML(
+            order.orderNo
+        )}
 
-                    </span>
+    </button>
 
-                </td>
+</td>
 
 
                 <td>
@@ -501,25 +523,28 @@ const upcomingOrders =
 
                 <td>
 
-    ${getStatusBadge(order.orderStatus)}
+                    ${getStatusBadge(
+                        order.orderStatus
+                    )}
 
-    ${
-        String(order.orderStatus)
-            .trim()
-            .toLowerCase() === "waiting for payment"
-        ? `
-            <button
-                type="button"
-                class="paid-btn"
-                onclick="markOrderAsPaid('${escapeHTML(order.orderNo)}')"
-            >
-                ✓ PAID
-            </button>
-        `
-        : ""
-    }
+                    ${
+                        String(order.orderStatus)
+                            .trim()
+                            .toLowerCase() ===
+                            "waiting for payment"
+                        ? `
+                            <button
+                                type="button"
+                                class="paid-btn"
+                                onclick="markOrderAsPaid('${escapeHTML(order.orderNo)}')"
+                            >
+                                ✓ PAID
+                            </button>
+                        `
+                        : ""
+                    }
 
-</td>
+                </td>
 
 
                 <td>
@@ -564,50 +589,50 @@ const upcomingOrders =
 
                 <td>
 
-    ${escapeHTML(
-        order.deliveryTime
-    )}
+                    ${escapeHTML(
+                        order.deliveryTime
+                    )}
 
-</td>
-
-
-<td>
-
-    <span class="note-badge">
-
-        ${escapeHTML(
-            order.prepareTo
-        )}
-
-    </span>
-
-</td>
+                </td>
 
 
-<td class="decorator-cell">
+                <td>
 
-    <input
-        type="text"
-        class="decorator-input"
-        list="decoratorList"
-        value="${escapeHTML(
-            order.decoratorAssign || ""
-        )}"
-        placeholder="Assign Decorator"
-        data-order-no="${escapeHTML(
-            order.orderNo
-        )}"
-    >
+                    <span class="note-badge">
 
-  <button
-    type="button"
-    class="decorator-save-btn"
-    onclick="saveDecoratorAssignment(this)"
->
-    Save
-</button>
+                        ${escapeHTML(
+                            order.prepareTo
+                        )}
 
-</td>
+                    </span>
+
+                </td>
+
+
+                <td class="decorator-cell">
+
+                    <input
+                        type="text"
+                        class="decorator-input"
+                        list="decoratorList"
+                        value="${escapeHTML(
+                            order.decoratorAssign || ""
+                        )}"
+                        placeholder="Assign Decorator"
+                        data-order-no="${escapeHTML(
+                            order.orderNo
+                        )}"
+                    >
+
+                    <button
+                        type="button"
+                        class="decorator-save-btn"
+                        onclick="saveDecoratorAssignment(this)"
+                    >
+                        Save
+                    </button>
+
+                </td>
 
             `;
 
@@ -618,8 +643,6 @@ const upcomingOrders =
     );
 
 }
-
-
 // =====================================================
 // STATUS BADGE
 // =====================================================
@@ -1005,7 +1028,7 @@ function displayFilteredOrders(
             <tr>
 
                 <td
-                    colspan="11"
+                    colspan="12"
                     class="loading"
                 >
 
@@ -1026,24 +1049,42 @@ function displayFilteredOrders(
         function(order) {
 
             const row =
-                document.createElement(
-                    "tr"
+                document.createElement("tr");
+
+
+            // ==========================================
+            // GMAIL SEARCH LINK
+            // SEARCH CUSTOMER / ORDER NUMBER
+            // ==========================================
+
+            const gmailSearch =
+                "https://mail.google.com/mail/u/0/#search/" +
+                encodeURIComponent(
+                    '"' + String(order.orderNo) + '"'
                 );
 
 
             row.innerHTML = `
 
-                <td>
+               <td>
 
-                    <span class="order-number">
+    <button
+        type="button"
+        class="order-number gmail-order-button"
+        onclick="openOrderEmail(
+            '${escapeHTML(order.orderNo)}',
+            '${escapeHTML(order.customerNumber)}'
+        )"
+        title="Click to search this order in Gmail"
+    >
 
-                        ${escapeHTML(
-                            order.orderNo
-                        )}
+        ${escapeHTML(
+            order.orderNo
+        )}
 
-                    </span>
+    </button>
 
-                </td>
+</td>
 
 
                 <td>
@@ -1057,9 +1098,13 @@ function displayFilteredOrders(
 
                 <td>
 
-                    ${escapeHTML(
-                        order.customerNumber
-                    )}
+                    <strong>
+
+                        ${escapeHTML(
+                            order.customerNumber
+                        )}
+
+                    </strong>
 
                 </td>
 
@@ -1073,25 +1118,30 @@ function displayFilteredOrders(
                 </td>
 
 
-               <td>
+                <td>
 
-    ${getStatusBadge(order.orderStatus)}
+                    ${getStatusBadge(
+                        order.orderStatus
+                    )}
 
-   ${
-    String(order.orderStatus).trim().toLowerCase() === "waiting for payment"
-    ? `
-        <button
-            type="button"
-            class="paid-btn"
-            onclick="markOrderAsPaid('${order.orderNo}')"
-        >
-            ✓ PAID
-        </button>
-    `
-    : ""
-}
+                    ${
+                        String(order.orderStatus)
+                            .trim()
+                            .toLowerCase() ===
+                            "waiting for payment"
+                        ? `
+                            <button
+                                type="button"
+                                class="paid-btn"
+                                onclick="markOrderAsPaid('${escapeHTML(order.orderNo)}')"
+                            >
+                                ✓ PAID
+                            </button>
+                        `
+                        : ""
+                    }
 
-</td>
+                </td>
 
 
                 <td>
@@ -1142,6 +1192,45 @@ function displayFilteredOrders(
 
                 </td>
 
+
+                <td>
+
+                    <span class="note-badge">
+
+                        ${escapeHTML(
+                            order.prepareTo
+                        )}
+
+                    </span>
+
+                </td>
+
+
+                <td class="decorator-cell">
+
+                    <input
+                        type="text"
+                        class="decorator-input"
+                        list="decoratorList"
+                        value="${escapeHTML(
+                            order.decoratorAssign || ""
+                        )}"
+                        placeholder="Assign Decorator"
+                        data-order-no="${escapeHTML(
+                            order.orderNo
+                        )}"
+                    >
+
+                    <button
+                        type="button"
+                        class="decorator-save-btn"
+                        onclick="saveDecoratorAssignment(this)"
+                    >
+                        Save
+                    </button>
+
+                </td>
+
             `;
 
 
@@ -1151,8 +1240,6 @@ function displayFilteredOrders(
     );
 
 }
-
-
 // =====================================================
 // SEND ORDER TO GOOGLE SHEETS
 // =====================================================
@@ -2125,5 +2212,77 @@ async function saveDecoratorAssignment(button) {
         button.disabled = false;
 
     }
+
+}
+// =====================================================
+// OPEN ORDER EMAIL IN GMAIL
+// =====================================================
+
+function openOrderEmail(orderNo, customerNumber) {
+
+    // Use customer number if available
+    // Otherwise use order number
+
+    const searchNumber =
+        customerNumber ||
+        orderNo;
+
+    if (!searchNumber) {
+
+        alert(
+            "No order number or customer number available."
+        );
+
+        return;
+    }
+
+
+    // Gmail search
+    const gmailURL =
+        "https://mail.google.com/mail/u/0/#search/" +
+        encodeURIComponent(
+            '"' + String(searchNumber).trim() + '"'
+        );
+
+
+    // Open Gmail in a new tab
+
+    window.open(
+        gmailURL,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+// =====================================================
+// OPEN ORDER EMAIL IN GMAIL
+// =====================================================
+
+function openOrderEmail(orderNo, customerNumber) {
+
+    const searchNumber =
+        customerNumber ||
+        orderNo;
+
+    if (!searchNumber) {
+
+        alert(
+            "No order number or customer number available."
+        );
+
+        return;
+    }
+
+    const gmailURL =
+        "https://mail.google.com/mail/u/0/#search/" +
+        encodeURIComponent(
+            '"' + String(searchNumber).trim() + '"'
+        );
+
+    window.open(
+        gmailURL,
+        "_blank",
+        "noopener,noreferrer"
+    );
 
 }
