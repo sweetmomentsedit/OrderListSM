@@ -1949,7 +1949,7 @@ async function saveDecoratorAssignment(button) {
 
         "\n\n━━━━━━━━━━━━━━━━━━\n" +
 
-        "Please prepare the order accordingly. 🌸";
+        "Please prepare the order accordingly, for more details check the email. 🌸";
 
 
     // =================================================
