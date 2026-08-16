@@ -177,8 +177,8 @@
                         Select cake flavor
                     </option>
 
-                    <option value="Choco fudge">
-                        Choco Pudge
+                    <option value="Choco Pudge">
+                        Choco Fudge
                     </option>
 
                     <option value="Choco">
@@ -200,6 +200,9 @@
                     <option value="Red Velvet">
                         Red Velvet
                     </option>
+                    <option value="Nutella">
+                        Nutella
+                    </option>
 
                     <option value="Carrot">
                         Carrot
@@ -216,10 +219,6 @@
                     <option value="Victoria">
                         Victoria
                     </option>
-                    <option value="Nutella">
-                        Victoria
-                    </option>
-
 
                     <option value="Funfetti">
                         Funfetti
@@ -252,12 +251,9 @@
                     <option value="Downpayment">
                         Downpayment
                     </option>
-                    
+
                     <option value="Paid">
-                        Paid Cash
-                    </option>
-                     <option value="Paid">
-                        Paid Online
+                        Paid
                     </option>
 
                 </select>
@@ -270,32 +266,37 @@
 
             <div class="form-group">
 
-                <label for="notes">
-                    Special Notes
-                </label>
+    <label for="notes">
+        Special Notes
+    </label>
 
-                <select id="notes" required>
+    <select id="notes" required>
 
-                    <option value="None">
-                        None
-                    </option>
+        <option value="None">
+            None
+        </option>
 
-                    <option value="No Nuts">
-                        No Nuts
-                    </option>
+        <option value="No Nuts">
+            No Nuts
+        </option>
 
-                    <option value="Eggless">
-                        Eggless
-                    </option>
+        <option value="Eggless">
+            Eggless
+        </option>
 
-                    <option value="No Nuts / Eggless">
-                        No Nuts / Eggless
-                    </option>
+        <option value="No Nuts / Eggless">
+            No Nuts / Eggless
+        </option>
 
-                </select>
+    </select>
 
-            </div>
+    <input
+        type="text"
+        id="notesDescription"
+        placeholder="Add description (optional)"
+    >
 
+</div>
 
 
             <!-- PAYMENT -->
@@ -319,12 +320,7 @@
                     <option value="Card">
                         Card
                     </option>
-                    <option value="Card">
-                        Waiting
-                    </option>
-                    <option value="Card">
-                        Online Payment
-                    </option>
+
                 </select>
 
             </div>

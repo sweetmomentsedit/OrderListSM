@@ -1205,12 +1205,21 @@ document
                     .value;
 
 
-            const notes =
-                document
-                    .getElementById(
-                        "notes"
-                    )
-                    .value;
+            const notesType =
+    document
+        .getElementById("notes")
+        .value;
+
+const notesDescription =
+    document
+        .getElementById("notesDescription")
+        .value
+        .trim();
+
+const notes =
+    notesDescription
+        ? notesType + " - " + notesDescription
+        : notesType;
 
 
             const paymentMethod =
@@ -1759,7 +1768,7 @@ const DECORATOR_PHONES = {
     "Michelle": "97433539756",
 
     "Jean Gay": "97477781639",
-    "Nea": "97474489153"
+    "Nea": "97477781639"
 
 };
 // =====================================================
