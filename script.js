@@ -1439,32 +1439,7 @@ const orderData = {
 };
 
 
-            try {
-
-                await fetch(
-                    GOOGLE_SCRIPT_URL,
-                    {
-
-                        method:
-                            "POST",
-
-                        mode:
-                            "no-cors",
-
-                        headers: {
-
-                            "Content-Type":
-                                "text/plain;charset=utf-8"
-
-                        },
-
-                        body:
-                            JSON.stringify(
-                                orderData
-                            )
-
-                    }
-                );
+          
 try {
 
     const response =
@@ -1634,66 +1609,7 @@ catch (error) {
 
 }
 
-
-// ==========================================
-// RESET ALL ORDER FIELDS
-// ==========================================
-
-document
-    .getElementById("orderForm")
-    .reset();
-
-
-// ==========================================
-// RESET PREPARE TO
-// ==========================================
-
-const prepareToSelect =
-    document.getElementById("prepareTo");
-
-if (prepareToSelect) {
-
-    prepareToSelect.selectedIndex = 0;
-
-    prepareToSelect.value = "";
-
-}
-
-
-// ==========================================
-// RESTORE MINIMUM DELIVERY DATE
-// ==========================================
-
-setMinimumDeliveryDate();
-
-
-// ==========================================
-// REFRESH GOOGLE SHEET DATA
-// ==========================================
-
-setTimeout(
-    function() {
-
-        loadOrders();
-
-    },
-    1000
-);
-
-            }
-
-            catch (error) {
-
-                console.error(error);
-
-
-                message.textContent =
-                    "Unable to save order. Please check the Google Apps Script connection.";
-
-                message.style.color =
-                    "#d32f2f";
-
-            }
+           
 
 
             button.disabled =
@@ -1765,7 +1681,7 @@ loadOrders();
 
 
 // =====================================================
-// AUTO REFRESH EVERY 10 SECONDS
+// AUTO REFRESH EVERY 5  
 // =====================================================
 
 setInterval(
@@ -2017,7 +1933,8 @@ const DECORATOR_PHONES = {
     "Michelle": "97433539756",
 
     "Jean Gay": "97477781639",
-    "Nea": "97474489153"
+    "Nea": "97474489153",
+    "Rochelle" : "97474083053"
 
 };
 // =====================================================
