@@ -1465,12 +1465,174 @@ const orderData = {
 
                     }
                 );
+try {
 
-message.textContent =
-    "✓ Order saved successfully!";
+    const response =
+        await fetch(
+            GOOGLE_SCRIPT_URL,
+            {
+                method:
+                    "POST",
 
-message.style.color =
-    "#2e7d32";
+                headers: {
+
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+
+                },
+
+                body:
+                    JSON.stringify(
+                        orderData
+                    )
+            }
+        );
+
+
+    // ==========================================
+    // READ GOOGLE APPS SCRIPT RESPONSE
+    // ==========================================
+
+    const result =
+        await response.json();
+
+
+    console.log(
+        "Google Apps Script response:",
+        result
+    );
+
+
+    // ==========================================
+    // DUPLICATE ORDER
+    // ==========================================
+
+    if (
+        result.success === false &&
+        result.duplicate === true
+    ) {
+
+        message.textContent =
+            "❌ Duplicate Order: " +
+            result.error;
+
+        message.style.color =
+            "#d32f2f";
+
+
+        // DO NOT RESET FORM
+        // DO NOT RELOAD ORDERS
+        // DO NOT SHOW SUCCESS
+
+        return;
+
+    }
+
+
+    // ==========================================
+    // OTHER SAVE ERROR
+    // ==========================================
+
+    if (
+        result.success !== true
+    ) {
+
+        message.textContent =
+            "❌ Unable to save order: " +
+            (
+                result.error ||
+                "Unknown error."
+            );
+
+        message.style.color =
+            "#d32f2f";
+
+
+        return;
+
+    }
+
+
+    // ==========================================
+    // SUCCESS
+    // ==========================================
+
+    message.textContent =
+        "✓ Order saved successfully! " +
+        "Order #" +
+        result.orderNo;
+
+    message.style.color =
+        "#2e7d32";
+
+
+    // ==========================================
+    // RESET ALL ORDER FIELDS
+    // ONLY AFTER SUCCESS
+    // ==========================================
+
+    document
+        .getElementById("orderForm")
+        .reset();
+
+
+    // ==========================================
+    // RESET PREPARE TO
+    // ==========================================
+
+    const prepareToSelect =
+        document.getElementById("prepareTo");
+
+
+    if (prepareToSelect) {
+
+        prepareToSelect.selectedIndex =
+            0;
+
+        prepareToSelect.value =
+            "";
+
+    }
+
+
+    // ==========================================
+    // RESTORE MINIMUM DELIVERY DATE
+    // ==========================================
+
+    setMinimumDeliveryDate();
+
+
+    // ==========================================
+    // REFRESH GOOGLE SHEET DATA
+    // ==========================================
+
+    setTimeout(
+        function() {
+
+            loadOrders();
+
+        },
+        1000
+    );
+
+}
+
+catch (error) {
+
+    console.error(
+        "Save order error:",
+        error
+    );
+
+
+    message.textContent =
+        "Unable to save order. " +
+        "Please check the Google Apps Script connection.";
+
+    message.style.color =
+        "#d32f2f";
+
+}
 
 
 // ==========================================
